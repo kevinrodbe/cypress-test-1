@@ -1,0 +1,18 @@
+image: trion/ng-cli-karma
+
+cache:
+  paths:
+    - node_modules/
+
+deploy_stage:
+  stage: deploy
+  environment: Stage
+  only:
+    - master
+  script:
+    - rm ./package-lock.json
+    - npm install
+    - ./node_modules/@angular/cli/bin/ng test --progress false --single-run=true --watch=false
+    - ./node_modules/@angular/cli/bin/ng e2e --progress false --watch=false
+    - ./node_modules/@angular/cli/bin/ng build --progress false --prod --base-href http://itemsapp.surge.sh/
+    - ./node_modules/.bin/surge -p dist/ --domain itemsapp.surge.sh
