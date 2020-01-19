@@ -1,0 +1,5 @@
+@media only screen and (max-width : 400px) {
+  .brand-logo center flow-text{
+    font-size: 5px;
+  }
+}
